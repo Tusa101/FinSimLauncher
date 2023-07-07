@@ -1,0 +1,80 @@
+﻿<Page x:Class="FinSimLauncher.View.FinSimGamePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FinSimLauncher.View"
+      xmlns:vm="clr-namespace:FinSimLauncher.ViewModel"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Title="FinSimGamePage" Loaded="Page_Loaded">
+    <Page.DataContext>
+        <vm:FinSimPageVM></vm:FinSimPageVM>
+    </Page.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="15*"/>
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0" Grid.RowSpan="10" Grid.ColumnSpan="10"   HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Fill" Source="Res/Background/BackForTilda.png" Panel.ZIndex="0">
+            <Image.OpacityMask>
+                <ImageBrush ImageSource="/View/Res/Background/BackForTilda.png"/>
+            </Image.OpacityMask>
+        </Image>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="0.1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="0.5*"/>
+            </Grid.RowDefinitions>
+
+            <Button Name="PlayButton" Grid.Column="1" Grid.Row="1" 
+                    Content="{Binding Status}" Click="PlayButton_Click"/>
+            <TextBlock Grid.Column="1" Grid.Row="2" FontSize="14" Text="{Binding GameVersion}" 
+                       HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+            <ProgressBar Visibility="Hidden" Name="DownloadingPrB" Grid.Row="1" Grid.Column="0" Width="500" Height="20"  Margin="0,0,0,0" DataContext="{Binding Path=DownloadingProgressPercentage}">
+                <ProgressBar.Style>
+                    <Style TargetType="{x:Type ProgressBar}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ProgressBar">
+                                    <Border BorderBrush="#376ef0" BorderThickness="1" Background="#33c5f9" CornerRadius="02" Padding="0">
+                                        <Grid x:Name="PART_Track">
+                                            <Grid x:Name="PART_Indicator" HorizontalAlignment="Left" Background="#1bbe2e">
+                                                <Polygon Points="0,20 20,0 20,20" Stroke="#33c5f9" Fill="#33c5f9" HorizontalAlignment="Right" />
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ProgressBar.Style>
+                
+            </ProgressBar>
+            <Grid Grid.Row="1" Name="PBText">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <DockPanel Grid.Column="1">
+                    <Label Name="Percentage" DockPanel.Dock="Left" Content="" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Name="MBytes" DockPanel.Dock="Right" Content="" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                </DockPanel>
+                
+            </Grid>
+            
+        </Grid>
+        
+    </Grid>
+</Page>

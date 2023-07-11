@@ -80,5 +80,39 @@
             </Border.Style>
             <Button Style="{StaticResource ComboBoxButton}" Content="Log out" Foreground="#b3adf9" Click="Button_Click"/>
         </Border>
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" 
+                    FontSize="16" FontWeight="DemiBold" Margin="140,0,0,150">
+            <Hyperlink NavigateUri="mailto:dacha.industries@gmail.com?subject=Support%20FinSim&amp;body=Hello!%0D%0AI%20need%20help%20to%20fix%20some%20problems%20with%20FinSim.%20They%20are%20here%3A" 
+                       RequestNavigate="Hyperlink_RequestNavigate"  TextDecorations="None">
+                <Hyperlink.Style>
+                    <Style TargetType="Hyperlink"
+                           BasedOn="{StaticResource {x:Type Hyperlink}}">
+                        <Setter Property="Foreground" Value="#5cccf8"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Foreground" Value="#FFC7EDFC"/>
+                                                </Trigger>
+                                <EventTrigger RoutedEvent="MouseEnter">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="Foreground.Color" 
+                                                            To="#FFC7EDFC" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MouseLeave">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="Foreground.Color" 
+                                                            To="#5cccf8" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Style.Triggers>
+                    </Style>
+                </Hyperlink.Style>
+                Support
+            </Hyperlink>
+        </TextBlock>
     </Grid>
 </Page>

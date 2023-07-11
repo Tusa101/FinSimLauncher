@@ -37,8 +37,76 @@
                 <RowDefinition Height="0.5*"/>
             </Grid.RowDefinitions>
 
-            <Button Name="PlayButton" Grid.Column="1" Grid.Row="1" 
-                    Content="{Binding Status}" Click="PlayButton_Click"/>
+            <Border Name="PlayButton"   
+                Grid.Column="1" Grid.Row="1" Background="#FF004FA9">
+                <Border.Style>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="BorderBrush" Value="#FF32ADE7"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#FF48BDF4"/>
+                            </Trigger>
+                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" 
+                                                    Duration="0:0:0.100" To="#FF0C7EB4"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="PreviewMouseUp">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" 
+                                                    Duration="0:0:0.100" To="#FF32ADE7"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Button Content="{Binding Status}" Click="PlayButton_Click" FontSize="16" Foreground="White" Background="#FF4989FF" Cursor="Hand">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="OverridesDefaultStyle" Value="True"/>
+                            <Setter Property="Background" Value="#FF4DA0FF"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border x:Name="Border" BorderThickness="0" 
+                                Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ThicknessAnimation Storyboard.TargetProperty="Margin" 
+                                                                        Duration="0:0:0.100" To="2,2,0,0"/>
+                                                        <ColorAnimation Storyboard.TargetProperty="Background.Color" 
+                                                                    To="#FF1468C8" Duration="0:0:0.002"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                            <EventTrigger RoutedEvent="PreviewMouseUp">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ThicknessAnimation Storyboard.TargetProperty="Margin" 
+                                                                        Duration="0:0:0.100" To="0"/>
+                                                        <ColorAnimation Storyboard.TargetProperty="Background.Color" 
+                                                                    To="#FF4989FF" Duration="0:0:0.002"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+
+                </Button>
+            </Border>
             <TextBlock Grid.Column="1" Grid.Row="2" FontSize="14" Text="{Binding GameVersion}" 
                        HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
             <ProgressBar Visibility="Hidden" Name="DownloadingPrB" Grid.Row="1" Grid.Column="0" Width="500" Height="20"  Margin="0,0,0,0" DataContext="{Binding Path=DownloadingProgressPercentage}">

@@ -620,7 +620,7 @@
                     </Style.Triggers>
                 </Style>
             </Border.Style>
-            <Button>
+            <Button x:Name="GoogleAuthButton" Click="">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="OverridesDefaultStyle" Value="True"/>

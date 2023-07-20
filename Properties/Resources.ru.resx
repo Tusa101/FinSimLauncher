@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountNameText" xml:space="preserve">
-    <value>Account name</value>
+    <value>Имя аккаунта</value>
   </data>
   <data name="AccountPageButton" xml:space="preserve">
-    <value>Account</value>
+    <value>Личный кабинет</value>
   </data>
   <data name="EducationPageButton" xml:space="preserve">
-    <value>Education Page</value>
+    <value>Образовательный раздел</value>
   </data>
   <data name="FinSimGameButton" xml:space="preserve">
-    <value>FinSim Game</value>
+    <value>Игра FinSim</value>
   </data>
   <data name="ForumPageButton" xml:space="preserve">
-    <value>Forum</value>
+    <value>Форум</value>
   </data>
   <data name="LanguageEnglish" xml:space="preserve">
     <value>English</value>
@@ -139,39 +139,39 @@
     <value>Русский</value>
   </data>
   <data name="LanguageText" xml:space="preserve">
-    <value>Language</value>
+    <value>Язык</value>
   </data>
   <data name="LogOutButton" xml:space="preserve">
-    <value>Log Out</value>
+    <value>Смена аккаунта</value>
   </data>
   <data name="MainPageButton" xml:space="preserve">
-    <value>Home</value>
+    <value>Главная</value>
   </data>
   <data name="NewsPageButton" xml:space="preserve">
-    <value>News</value>
+    <value>Новости</value>
   </data>
   <data name="SettingsPageButton" xml:space="preserve">
-    <value>Settings</value>
+    <value>Настройки</value>
   </data>
   <data name="StatusCheck" xml:space="preserve">
-    <value>Check Updates</value>
+    <value>Проверить обновления</value>
   </data>
   <data name="StatusDownloadingGame" xml:space="preserve">
-    <value>Downloading Game</value>
+    <value>Игра скачивается</value>
   </data>
   <data name="StatusDownloadingUpdate" xml:space="preserve">
-    <value>Downloading Update</value>
+    <value>Обновление скачивается</value>
   </data>
   <data name="StatusError" xml:space="preserve">
-    <value>Error</value>
+    <value>Ошибка</value>
   </data>
   <data name="StatusFailed" xml:space="preserve">
-    <value>Failed - Retry</value>
+    <value>Провалено - повторите</value>
   </data>
   <data name="StatusReady" xml:space="preserve">
-    <value>Play</value>
+    <value>Играть</value>
   </data>
   <data name="SupportLink" xml:space="preserve">
-    <value>Support</value>
+    <value>Техническая поддержка</value>
   </data>
 </root>

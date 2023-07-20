@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Markup.Localizer;
 using System.Windows.Shapes;
 using static System.Net.WebRequestMethods;
+using FinSimLauncher.Properties;
 
 namespace FinSimLauncher.ViewModel
 {
@@ -112,32 +113,32 @@ namespace FinSimLauncher.ViewModel
                 {
                     case LauncherStatus.Failed:
                         {
-                            Status = "Update Failed - Retry";
+                            Status = Resources.StatusFailed;
                         }
                         break;
                     case LauncherStatus.Ready:
                         {
-                            Status = "Play";
+                            Status = Resources.StatusReady;
                         }
                         break;
                     case LauncherStatus.DownloadingGame:
                         {
-                            Status = "Downloading Game";
+                            Status = Resources.StatusDownloadingGame;
                         }
                         break;
                     case LauncherStatus.DownloadingUpdate:
                         {
-                            Status = "Downloading Update";
+                            Status = Resources.StatusDownloadingUpdate;
                         }
                         break;
                     case LauncherStatus.WaitingForDecision:
                         {
-                            Status = "Check Updates";
+                            Status = Resources.StatusCheck;
                         }
                         break;
                     default:
                         {
-                            Status = "Error";
+                            Status = Resources.StatusError;
                         }
                         break;
                 }

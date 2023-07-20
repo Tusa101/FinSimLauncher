@@ -4,11 +4,23 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FinSimLauncher.View"
+      xmlns:res="clr-namespace:FinSimLauncher.Properties"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsPage">
 
     <Page.Resources>
+        <Style x:Key="ComboBoxStyle" TargetType="{x:Type ComboBox}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Padding" Value="4,1"/>
+            <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="Background" Value="#FF2515DD"/>
+            <!-- Custom value -->
+            <Setter Property="BorderBrush" Value="#FF2515DD"/>
+            <!-- Custom value -->
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
         <Style x:Key="ComboBoxButton" TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
             <Setter Property="Background" Value="#261ba2"/>
@@ -49,11 +61,10 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
-        <Image Grid.Column="1" Grid.Row="1" Source="/View/Res/Icons/FinSimRound.png" HorizontalAlignment="Left" 
+        <Image Grid.Column="1" Grid.Row="1" Source="/View/Res/Icons/FinSimRound.png" HorizontalAlignment="Right" 
                VerticalAlignment="Top" Width="60" Height="60" Margin="40, 30, 30, 30"></Image>
-        <Border Name="SettingsBorder"  Grid.Row ="1" Grid.Column="1" HorizontalAlignment="Left" 
-                VerticalAlignment="Top" Margin="120,37,30,30" Width="100" Height="45"
-                BorderThickness="1" Background="#FF0B0364" Cursor="Hand">
+        <Border Name="SettingsBorder"  Grid.Row ="1" Grid.Column="1" HorizontalAlignment="Left" Margin="200,37,0,0" Width="100"
+                BorderThickness="1" Background="#FF0B0364" Cursor="Hand" Height="45" VerticalAlignment="Top">
             <Border.Style>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="BorderBrush" Value="#4136bf"/>
@@ -78,10 +89,21 @@
                     </Style.Triggers>
                 </Style>
             </Border.Style>
-            <Button Style="{StaticResource ComboBoxButton}" Content="Log out" Foreground="#b3adf9" Click="Button_Click"/>
+            <Button Style="{StaticResource ComboBoxButton}" Foreground="#b3adf9" Click="Button_Click">
+                <Image Source="/Resources/Close.png" RenderTransformOrigin="0.5,0.5" Margin="10">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="-1"/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Button>
         </Border>
-        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" 
-                    FontSize="16" FontWeight="DemiBold" Margin="140,0,0,150">
+        <TextBlock Text="{Binding Source={x:Static res:ResourceService.Current}, Path=Resources.LogOutButton, Mode=OneWay}" 
+                   Grid.Column="1" Grid.Row="1" Margin="60,46,30,30" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                   Foreground="#5cccf8" FontWeight="SemiBold" FontSize="16"/>
+        <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" 
+                    FontSize="16" FontWeight="DemiBold" Margin="60,0,0,37" >
             <Hyperlink NavigateUri="mailto:dacha.industries@gmail.com?subject=Support%20FinSim&amp;body=Hello!%0D%0AI%20need%20help%20to%20fix%20some%20problems%20with%20FinSim.%20They%20are%20here%3A" 
                        RequestNavigate="Hyperlink_RequestNavigate"  TextDecorations="None">
                 <Hyperlink.Style>
@@ -111,8 +133,20 @@
                             </Style.Triggers>
                     </Style>
                 </Hyperlink.Style>
-                Support
+                <TextBlock Text="{Binding Source={x:Static res:ResourceService.Current}, Path=Resources.SupportLink, Mode=OneWay}"/>
             </Hyperlink>
         </TextBlock>
+        <TextBlock Text="{Binding Source={x:Static res:ResourceService.Current}, Path=Resources.LanguageText, Mode=OneWay}" 
+                   Grid.Column="1" Grid.Row="1" Margin="60,105,30,30" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                   Foreground="#5cccf8" FontWeight="SemiBold" FontSize="16"/>
+        <ComboBox Name ="LangCB" Style="{DynamicResource ComboBoxStyle}" Grid.Row="1" Grid.Column="1" 
+                  Width="100" Height="45" Margin="200,94,30,30" HorizontalAlignment="Left" VerticalAlignment="Top"  
+                  Background="#FF2515DD" BorderBrush="#261ba2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                  SelectionChanged="ComboBox_SelectionChanged" SelectedIndex="1" Foreground="#b3adf9">
+            <ComboBoxItem Content="{Binding Source={x:Static res:ResourceService.Current}, Path=Resources.LanguageRussian, Mode=OneWay}" 
+                          Background="#FF2515DD" BorderBrush="#FF2515DD" Foreground="#b3adf9"/>
+            <ComboBoxItem Content="{Binding Source={x:Static res:ResourceService.Current}, Path=Resources.LanguageEnglish, Mode=OneWay}" 
+                          Background="#FF2515DD" BorderBrush="#FF2515DD" Foreground="#b3adf9"/>
+        </ComboBox>
     </Grid>
 </Page>

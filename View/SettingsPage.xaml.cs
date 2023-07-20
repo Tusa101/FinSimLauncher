@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FinSimLauncher.Properties;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -41,6 +43,32 @@ namespace FinSimLauncher.View
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var ind = LangCB.SelectedIndex;
+            switch (ind)
+            {
+                case 0:
+                    {
+                        ResourceService.Current.ChangeCulture("ru");
+                        Application.Current.Resources["StandardFontSize"] = 12.0;
+                    }
+                    break;
+                case 1:
+                    {
+                        ResourceService.Current.ChangeCulture("en");
+                        Application.Current.Resources["StandardFontSize"] = 16.0;
+                    }
+                    break;
+                default:
+                    {
+                        ResourceService.Current.ChangeCulture("en");
+                        Application.Current.Resources["StandardFontSize"] = 16.0;
+                    }
+                    break;
+            }
         }
     }
 }

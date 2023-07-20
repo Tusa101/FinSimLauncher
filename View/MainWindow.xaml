@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FinSimLauncher"
+        xmlns:res="clr-namespace:FinSimLauncher.Properties"
         xmlns:vm="clr-namespace:FinSimLauncher.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" MinHeight ="600" MaxHeight="600" 
@@ -172,17 +173,22 @@
             <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
         <Frame Name="Framer" Grid.ColumnSpan="10" Grid.RowSpan="10" NavigationUIVisibility="Hidden" Content="{Binding CurrentPG}" Panel.ZIndex="-2"/>
-        
+
         <Grid Name="TopMenu" Grid.Row="0" Grid.ColumnSpan="3" Panel.ZIndex="999">
             <Border BorderThickness="1" BorderBrush="#FF736CC5" Background="#FF1E139A" Opacity="0.9" MouseDown="MoveWindow">
-                <StackPanel Orientation="Horizontal">
-                    <Button Template="{StaticResource ResourceKey=TopMenuButtons}" Content="ГЛАВНАЯ" Command="{Binding OpenStartPG}"/>
-                    <Button Template="{StaticResource ResourceKey=TopMenuButtons}" Content="НОВОСТИ" Command="{Binding OpenNewsPG}"/>
-                    <Button Template="{StaticResource ResourceKey=TopMenuButtons}" Content="ФОРУМ" Command="{Binding OpenForumPG}"/>
-                        <Button Template="{StaticResource ResourceKey=TopMenuButtons}" Content="НАСТРОЙКИ" Command="{Binding OpenSettingsPG}"/>
-                    <Button Template="{StaticResource ResourceKey=TopMenuButtons}" Content="ЛИЧНЫЙ КАБИНЕТ" Command="{Binding OpenAccountPG}"/>
-                    <Rectangle Width="160" Height="20"/>
-                    <Button Name="CloseButton" BorderBrush="Transparent" Grid.Column="0" Grid.Row="0" Click="CloseButton_Click" Width="20" Height="20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Column="0">
+                        <Button Template="{StaticResource ResourceKey=TopMenuButtons}" Content="{Binding Source={x:Static res:ResourceService.Current}, Path=Resources.MainPageButton, Mode=OneWay}" Command="{Binding OpenStartPG}"/>
+                        <Button Template="{StaticResource ResourceKey=TopMenuButtons}" Content="{Binding Source={x:Static res:ResourceService.Current}, Path=Resources.NewsPageButton, Mode=OneWay}" Command="{Binding OpenNewsPG}"/>
+                        <Button Template="{StaticResource ResourceKey=TopMenuButtons}" Content="{Binding Source={x:Static res:ResourceService.Current}, Path=Resources.ForumPageButton, Mode=OneWay}" Command="{Binding OpenForumPG}"/>
+                        <Button Template="{StaticResource ResourceKey=TopMenuButtons}" Content="{Binding Source={x:Static res:ResourceService.Current}, Path=Resources.SettingsPageButton, Mode=OneWay}" Command="{Binding OpenSettingsPG}"/>
+                        <Button Template="{StaticResource ResourceKey=TopMenuButtons}" Content="{Binding Source={x:Static res:ResourceService.Current}, Path=Resources.AccountPageButton, Mode=OneWay}" Command="{Binding OpenAccountPG}"/>
+                    </StackPanel>
+                    <Button Name="CloseButton" BorderBrush="Transparent" Click="CloseButton_Click" Width="20" Height="20" Grid.Column="1" Margin="100,0,0,0">
                         <Button.Resources>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Background">
@@ -212,7 +218,8 @@
                         </Button.Resources>
 
                     </Button>
-                </StackPanel>
+                </Grid>
+                
             </Border>
         </Grid>
         <Grid Name="SlideMenu" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Panel.ZIndex="999">
@@ -230,14 +237,14 @@
             <Border BorderThickness="1,0,1,1" BorderBrush="#FF736CC5"/>
             <Border BorderThickness="0" Background="#FF1E139A" Opacity="0.6"/>
             <StackPanel>
-                <Button Margin="0,35,0,0" Template="{StaticResource ResourceKey=SlideMenuButtons}" Content="FinSim Game" Command="{Binding OpenFSGamePG}">
+                <Button Margin="0,35,0,0" Template="{StaticResource ResourceKey=SlideMenuButtons}" Content="{Binding Source={x:Static res:ResourceService.Current}, Path=Resources.FinSimGameButton, Mode=OneWay}" Command="{Binding OpenFSGamePG}">
                     <Button.Resources>
                         <ImageSource x:Key="Img">
                             Res/Icons/FinSimRound.png
                         </ImageSource>
                     </Button.Resources>
                 </Button>
-                <Button Template="{StaticResource ResourceKey=SlideMenuButtons}" Content="FinSim Education" Command="{Binding OpenEdPG}">
+                <Button Template="{StaticResource ResourceKey=SlideMenuButtons}" Content="{Binding Source={x:Static res:ResourceService.Current}, Path=Resources.EducationPageButton, Mode=OneWay}" Command="{Binding OpenEdPG}">
                     <Button.Resources>
                         <ImageSource x:Key="Img">
                             Res/Icons/Education.png

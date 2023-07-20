@@ -19,6 +19,6 @@
         </Grid.RowDefinitions>
         <cefSharp:ChromiumWebBrowser Grid.Row="1" Grid.Column="1" Name="browser" 
                                      Height="Auto" Width="Auto" 
-                                     Address="https://stackoverflow.com/" Margin="0" FrameLoadEnd="browser_FrameLoadEnd" VerticalContentAlignment="Center"/>
+                                     Address="http://accounts.google.com/Login" Margin="0" FrameLoadEnd="browser_FrameLoadEnd" VerticalContentAlignment="Center"/>
     </Grid>
 </Page>

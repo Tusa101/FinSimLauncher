@@ -22,7 +22,7 @@ namespace FinSimLauncher.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace FinSimLauncher.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FinSimLauncher.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace FinSimLauncher.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,62 +61,173 @@ namespace FinSimLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to Account name.
         /// </summary>
-        internal static System.Drawing.Bitmap BackForTilda {
+        public static string AccountNameText {
             get {
-                object obj = ResourceManager.GetObject("BackForTilda", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("AccountNameText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to Account.
         /// </summary>
-        internal static System.Drawing.Bitmap Close {
+        public static string AccountPageButton {
             get {
-                object obj = ResourceManager.GetObject("Close", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("AccountPageButton", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to Education Page.
         /// </summary>
-        internal static System.Drawing.Bitmap CloseWindow {
+        public static string EducationPageButton {
             get {
-                object obj = ResourceManager.GetObject("CloseWindow", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("EducationPageButton", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to FinSim Game.
         /// </summary>
-        internal static System.Drawing.Bitmap CloseWindowHovered {
+        public static string FinSimGameButton {
             get {
-                object obj = ResourceManager.GetObject("CloseWindowHovered", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("FinSimGameButton", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to Forum.
         /// </summary>
-        internal static System.Drawing.Bitmap Education {
+        public static string ForumPageButton {
             get {
-                object obj = ResourceManager.GetObject("Education", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("ForumPageButton", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to English.
         /// </summary>
-        internal static System.Drawing.Bitmap FinSimRound {
+        public static string LanguageEnglish {
             get {
-                object obj = ResourceManager.GetObject("FinSimRound", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("LanguageEnglish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Русский.
+        /// </summary>
+        public static string LanguageRussian {
+            get {
+                return ResourceManager.GetString("LanguageRussian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string LanguageText {
+            get {
+                return ResourceManager.GetString("LanguageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log Out.
+        /// </summary>
+        public static string LogOutButton {
+            get {
+                return ResourceManager.GetString("LogOutButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string MainPageButton {
+            get {
+                return ResourceManager.GetString("MainPageButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to News.
+        /// </summary>
+        public static string NewsPageButton {
+            get {
+                return ResourceManager.GetString("NewsPageButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string SettingsPageButton {
+            get {
+                return ResourceManager.GetString("SettingsPageButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check Updates.
+        /// </summary>
+        public static string StatusCheck {
+            get {
+                return ResourceManager.GetString("StatusCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading Game.
+        /// </summary>
+        public static string StatusDownloadingGame {
+            get {
+                return ResourceManager.GetString("StatusDownloadingGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading Update.
+        /// </summary>
+        public static string StatusDownloadingUpdate {
+            get {
+                return ResourceManager.GetString("StatusDownloadingUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string StatusError {
+            get {
+                return ResourceManager.GetString("StatusError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed - Retry.
+        /// </summary>
+        public static string StatusFailed {
+            get {
+                return ResourceManager.GetString("StatusFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play.
+        /// </summary>
+        public static string StatusReady {
+            get {
+                return ResourceManager.GetString("StatusReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support.
+        /// </summary>
+        public static string SupportLink {
+            get {
+                return ResourceManager.GetString("SupportLink", resourceCulture);
             }
         }
     }

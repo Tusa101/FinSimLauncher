@@ -1,6 +1,9 @@
-﻿using System;
+﻿using FinSimLauncher.LoginForm.ViewModel;
+using System;
 using System.Diagnostics;
 using System.Net.Mail;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Navigation;
@@ -166,9 +169,11 @@ namespace FinSimLauncher.Login
             }
         }
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        private async void GoggleAuthButton_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            GoogleAuthButton.IsEnabled = false;
+            GoogleAuthVM googleAuth = new GoogleAuthVM();
+            _ = await googleAuth.MainAuthMethod(this);
         }
     }
 }

@@ -2,13 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Sockets;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.VisualBasic;
+using System.Diagnostics;
+using FinSimLauncher.Login;
 
 namespace FinSimLauncher.LoginForm.ViewModel
 {
@@ -16,40 +18,42 @@ namespace FinSimLauncher.LoginForm.ViewModel
     {
         
         // client configuration
-        private const string clientID = "770522826914-ckgl9nkpptgkk8fjdmqtsu73jcbiq3f8.apps.googleusercontent.com";
-        private const string clientSecret = "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";
-        private const string authorizationEndpoint = "https://accounts.google.com/o/oauth2/v2/auth";
-        private const string tokenEndpoint = "https://www.googleapis.com/oauth2/v4/token";
-        private const string userInfoEndpoint = "https://www.googleapis.com/oauth2/v3/userinfo";
+        private const string _clientID = "770522826914-ckgl9nkpptgkk8fjdmqtsu73jcbiq3f8.apps.googleusercontent.com";
+        private const string _clientSecret = "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";
+        private const string _authorizationEndpoint = "https://accounts.google.com/o/oauth2/v2/auth";
+        private const string _tokenEndpoint = "https://www.googleapis.com/oauth2/v4/token";
+        private const string _userInfoEndpoint = "https://www.googleapis.com/oauth2/v3/userinfo";
+        private string _currSubID = "";
 
-        public GoogleAuthVM(Window window)
+        public string SubID { get => _currSubID; set => _currSubID = value; }
+
+        public GoogleAuthVM()
         {
-            MainAuthMethod(window);
         }
 
-        private async void MainAuthMethod(Window window)
+        public async Task<bool> MainAuthMethod(Window window)
         {
             // Generates state and PKCE values.
-            string state = randomDataBase64url(32);
-            string code_verifier = randomDataBase64url(32);
-            string code_challenge = base64urlencodeNoPadding(sha256(code_verifier));
+            string state = RandomDataBase64URL(32);
+            string code_verifier = RandomDataBase64URL(32);
+            string code_challenge = Base64URLEncodeNoPadding(SHA256(code_verifier));
             const string code_challenge_method = "S256";
 
             // Creates a redirect URI using an available port on the loopback address.
             string redirectURI = string.Format("http://{0}:{1}/", IPAddress.Loopback, GetRandomUnusedPort());
-            output("redirect URI: " + redirectURI);
+            //output("redirect URI: " + redirectURI);
 
             // Creates an HttpListener to listen for requests on that redirect URI.
             var http = new HttpListener();
             http.Prefixes.Add(redirectURI);
-            output("Listening..");
+            ////output("Listening..");
             http.Start();
 
             // Creates the OAuth 2.0 authorization request.
             string authorizationRequest = string.Format("{0}?response_type=code&scope=openid%20profile&redirect_uri={1}&client_id={2}&state={3}&code_challenge={4}&code_challenge_method={5}",
-                authorizationEndpoint,
+                _authorizationEndpoint,
                 System.Uri.EscapeDataString(redirectURI),
-                clientID,
+                _clientID,
                 state,
                 code_challenge,
                 code_challenge_method);
@@ -78,14 +82,14 @@ namespace FinSimLauncher.LoginForm.ViewModel
             // Checks for errors.
             if (context.Request.QueryString.Get("error") != null)
             {
-                output(String.Format("OAuth authorization error: {0}.", context.Request.QueryString.Get("error")));
-                return;
+                //output(String.Format("OAuth authorization error: {0}.", context.Request.QueryString.Get("error")));
+                return false;
             }
             if (context.Request.QueryString.Get("code") == null
                 || context.Request.QueryString.Get("state") == null)
             {
-                output("Malformed authorization response. " + context.Request.QueryString);
-                return;
+                //output("Malformed authorization response. " + context.Request.QueryString);
+                return false;
             }
 
             // extracts the code
@@ -96,13 +100,15 @@ namespace FinSimLauncher.LoginForm.ViewModel
             // this app made the request which resulted in authorization.
             if (incoming_state != state)
             {
-                output(String.Format("Received request with invalid state ({0})", incoming_state));
-                return;
+                //output(String.Format("Received request with invalid state ({0})", incoming_state));
+                return false;
             }
-            output("Authorization code: " + code);
+            //output("Authorization code: " + code);
 
             // Starts the code exchange at the Token Endpoint.
-            performCodeExchange(code, code_verifier, redirectURI);
+
+            await Task.WhenAll(new Task[] { PerformCodeExchange(code, code_verifier, redirectURI) });
+            return true;
         }
         
         public static int GetRandomUnusedPort()
@@ -114,18 +120,18 @@ namespace FinSimLauncher.LoginForm.ViewModel
             return port;
         }
 
-        async void performCodeExchange(string code, string code_verifier, string redirectURI)
+        async Task PerformCodeExchange(string code, string code_verifier, string redirectURI)
         {
-            output("Exchanging code for tokens...");
+            //output("Exchanging code for tokens...");
 
             // builds the  request
             string tokenRequestURI = "https://www.googleapis.com/oauth2/v4/token";
             string tokenRequestBody = string.Format("code={0}&redirect_uri={1}&client_id={2}&code_verifier={3}&client_secret={4}&scope=&grant_type=authorization_code",
                 code,
                 System.Uri.EscapeDataString(redirectURI),
-                clientID,
+                _clientID,
                 code_verifier,
-                clientSecret
+                _clientSecret
                 );
 
             // sends the request
@@ -147,13 +153,13 @@ namespace FinSimLauncher.LoginForm.ViewModel
                 {
                     // reads response body
                     string responseText = await reader.ReadToEndAsync();
-                    output(responseText);
+                    //output(responseText);
 
                     // converts to dictionary
                     Dictionary<string, string> tokenEndpointDecoded = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseText);
 
                     string access_token = tokenEndpointDecoded["access_token"];
-                    userinfoCall(access_token);
+                    UserInfoCall(access_token);
                 }
             }
             catch (WebException ex)
@@ -163,12 +169,12 @@ namespace FinSimLauncher.LoginForm.ViewModel
                     var response = ex.Response as HttpWebResponse;
                     if (response != null)
                     {
-                        output("HTTP: " + response.StatusCode);
+                        //output("HTTP: " + response.StatusCode);
                         using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                         {
                             // reads response body
                             string responseText = await reader.ReadToEndAsync();
-                            output(responseText);
+                            //output(responseText);
                         }
                     }
 
@@ -177,9 +183,9 @@ namespace FinSimLauncher.LoginForm.ViewModel
         }
 
 
-        async void userinfoCall(string access_token)
+        async void UserInfoCall(string access_token)
         {
-            output("Making API Call to Userinfo...");
+            //output("Making API Call to Userinfo...");
 
             // builds the  request
             string userinfoRequestURI = "https://www.googleapis.com/oauth2/v3/userinfo";
@@ -204,11 +210,19 @@ namespace FinSimLauncher.LoginForm.ViewModel
         /// <summary>
         /// Appends the given string to the on-screen log, and the debug console.
         /// </summary>
-        /// <param name="output">string to be appended</param>
-        public void output(string output)
+        /// <param name="outputStr">string to be appended</param>
+        public async void output(string outputStr)
         {
-            //textBoxOutput.Text = textBoxOutput.Text + output + Environment.NewLine;
-            Console.WriteLine(output);
+            int subInd = outputStr.IndexOf("\"sub\"", StringComparison.OrdinalIgnoreCase);
+            
+            if (subInd!=0)
+            {
+                string subID = outputStr.Substring(subInd + 8, 21);
+                SubID = subID;
+                LoginVM loginVM = new LoginVM();
+                await loginVM.LoginAsync(subID);
+            }
+            
         }
 
         /// <summary>
@@ -216,12 +230,12 @@ namespace FinSimLauncher.LoginForm.ViewModel
         /// </summary>
         /// <param name="length">Input length (nb. output will be longer)</param>
         /// <returns></returns>
-        public static string randomDataBase64url(uint length)
+        public static string RandomDataBase64URL(uint length)
         {
             RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
             byte[] bytes = new byte[length];
             rng.GetBytes(bytes);
-            return base64urlencodeNoPadding(bytes);
+            return Base64URLEncodeNoPadding(bytes);
         }
 
         /// <summary>
@@ -229,7 +243,7 @@ namespace FinSimLauncher.LoginForm.ViewModel
         /// </summary>
         /// <param name="inputStirng"></param>
         /// <returns></returns>
-        public static byte[] sha256(string inputStirng)
+        public static byte[] SHA256(string inputStirng)
         {
             byte[] bytes = Encoding.ASCII.GetBytes(inputStirng);
             SHA256Managed sha256 = new SHA256Managed();
@@ -241,7 +255,7 @@ namespace FinSimLauncher.LoginForm.ViewModel
         /// </summary>
         /// <param name="buffer"></param>
         /// <returns></returns>
-        public static string base64urlencodeNoPadding(byte[] buffer)
+        public static string Base64URLEncodeNoPadding(byte[] buffer)
         {
             string base64 = Convert.ToBase64String(buffer);
 
